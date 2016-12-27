@@ -16,6 +16,11 @@
  */
 
 get_header(); ?>
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/circular-carousel/jquery.circular-carousel.css" rel="stylesheet" type="text/css" media="all" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/circular-carousel/jquery.circular-carousel.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/circular-carousel/script.js"></script>
+
 <!-- banner -->
 	<div class="banner" id="home1">
 		<div class="container">
@@ -24,7 +29,155 @@ get_header(); ?>
 	</div>
 <!-- //banner -->
 
-<!-- banner-bottom1 -->
+<!-- #start featured-categories -->
+	<div class="new-products featured-categories-block Size">
+		<div class="container">
+			<h3>Featured Category</h3>
+			<?php
+
+			$prod_categories = get_terms( 'product_cat', array(
+			        'orderby'    => 'name',
+			        'order'      => 'ASC',
+			        'hide_empty' => false,
+			        'parent'     => 29
+		    ));
+
+		    foreach( $prod_categories as $prod_cat ) :
+		    	if (stripos(strtolower($prod_cat->name), "rugs") !== false) {
+				    $title = ucwords($prod_cat->name);
+				}else{
+					$title = ucwords($prod_cat->name).'&nbsp; Rugs';
+				}
+		        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
+		        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
+		        $term_link = get_term_link( $prod_cat, 'product_cat' );?>
+		        <div class="featured-categories">
+			        <div class="image"><a href="<?php echo $term_link; ?>"><img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" /></a></div>
+			        <div class="title">
+				        <a title="<?=$title?>" href="<?php echo $term_link; ?>"><?=$title?></a>
+			        </div>
+			        <div class="description"><p><?=$prod_cat->description?></p></div>
+			    </div>
+		    <?php 
+		    endforeach; 
+		    wp_reset_query(); 
+			
+			?>
+		</div>
+	</div>
+<!-- #end featured-categories -->
+
+<!-- #start shop-by-shape -->
+	<div class="new-products shop-by-shape-block Shape">
+		<div class="container">
+			<h3>Shop By Shape</h3>
+			<?php
+
+			$prod_categories = get_terms( 'product_cat', array(
+			        'orderby'    => 'id',
+			        'order'      => 'ASC',
+			        'hide_empty' => false,
+			        'parent'     => 30
+		    ));
+
+		    foreach( $prod_categories as $prod_cat ) :
+		    	
+		        if (stripos(strtolower($prod_cat->name), "rugs") !== false) {
+				    $title = ucwords($prod_cat->name);
+				}else{
+					$title = ucwords($prod_cat->name).'&nbsp; Rugs';
+				}
+					       
+		        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
+		        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
+		        $term_link = get_term_link( $prod_cat, 'product_cat' );?>
+		        <div class="shop-by-shape">
+			        <div class="image">
+			        	<a href="<?php echo $term_link; ?>" title="<?=$title?>" id="<?=$prod_cat->slug?>"></a>
+			        </div>
+			    </div>
+		    <?php 
+		    endforeach; 
+		    wp_reset_query(); 
+			
+			?>
+		</div>
+	</div>
+<!-- #end shop-by-shape -->
+
+<!-- #start shop-by-color -->
+	<div class="new-products shop-by-color Color">
+		<div class="container">
+			<h3>Shop By Color</h3>
+			<div class="row">
+				<ul class="carousel">
+					<li class="item active">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+					<li class="item">
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>		
+				</ul>
+			</div>
+			<div class="controls">
+				<a href="#" class="previous">Previous</a> 
+				<a href="#" class="next">Next</a>
+			</div>
+		</div>
+	</div>
+<!-- #end shop-by-color -->
+
+<!-- #start shop-by-construction -->
+	<div class="new-products shop-by-construction Construction">
+		<div class="container">
+			<h3>Shop By Construction</h3>
+			<?php
+
+			$prod_categories = get_terms( 'product_cat', array(
+			        'orderby'    => 'id',
+			        'order'      => 'ASC',
+			        'hide_empty' => false,
+			        'parent'     => 31
+		    ));
+
+		    foreach( $prod_categories as $prod_cat ) :
+		    	if (stripos(strtolower($prod_cat->name), "rugs") !== false) {
+				    $title = ucwords($prod_cat->name);
+				}else{
+					$title = ucwords($prod_cat->name).'&nbsp; Rugs';
+				}
+		        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
+		        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
+		        $term_link = get_term_link( $prod_cat, 'product_cat' );?>
+		        <div class="featured-categories">
+			        <div class="image"><a href="<?php echo $term_link; ?>"><img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" /></a></div>
+			        <div class="title">
+				        <a title="<?=$title?>" href="<?php echo $term_link; ?>"><?=$title?></a>
+			        </div>
+			        <div class="description"><p><?=$prod_cat->description?></p></div>
+			    </div>
+		    <?php 
+		    endforeach; 
+		    wp_reset_query(); 
+			
+			?>
+		</div>
+	</div>
+<!-- #end shop-by-construction -->
+
+<!-- #start banner-bottom1 -->
 	<div class="banner-bottom1">
 		<div class="agileinfo_banner_bottom1_grids">
 			<div class="col-md-7 agileinfo_banner_bottom1_grid_left">
@@ -42,464 +195,9 @@ get_header(); ?>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- //banner-bottom1 -->
-<!-- new-products -->
-	<div class="new-products Shape">
-		<div class="container">
-			<h3>Shop By Shape</h3>
-			<div class="agileinfo_new_products_grids">
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Skirts</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal5"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jackets</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Dresses</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jeans</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-<!-- //new-products -->
-<!-- new-products -->
-	<div class="new-products Size">
-		<div class="container">
-			<h3>Shop By Size</h3>
-			<div class="agileinfo_new_products_grids">
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Skirts</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal5"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jackets</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Dresses</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jeans</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-<!-- //new-products -->
-<!-- new-products -->
-	<div class="new-products Color">
-		<div class="container">
-			<h3>Shop By Color</h3>
-			<div class="agileinfo_new_products_grids">
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Skirts</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal5"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jackets</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Dresses</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jeans</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-<!-- //new-products -->
-<!-- new-products -->
-	<div class="new-products Category">
-		<div class="container">
-			<h3>Shop By Category</h3>
-			<div class="agileinfo_new_products_grids">
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/27.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/28.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/29.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Skirts</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/31.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/32.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/33.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/34.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal5"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jackets</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/37.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/30.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/36.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/38.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal6"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Dresses</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 agileinfo_new_products_grid">
-					<div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-						<div class="hs-wrapper hs-wrapper1">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/40.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/41.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/42.jpg" alt=" " class="img-responsive" />
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/43.jpg" alt=" " class="img-responsive" />
-							<div class="w3_hs_bottom w3_hs_bottom_sub">
-								<ul>
-									<li>
-										<a href="#" data-toggle="modal" data-target="#myModal1"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<h5><a href="single.html">Jeans</a></h5>
-						<div class="simpleCart_shelfItem">
-							<p><span>$320</span> <i class="item_price">$250</i></p>
-							<p><a class="item_add" href="#">Add to cart</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-<!-- //new-products -->
-<!-- newsletter -->
+<!-- #end banner-bottom1 -->
+
+<!-- #start newsletter -->
 	<div class="newsletter">
 		<div class="container">
 			<div class="col-md-6 w3agile_newsletter_left">
@@ -515,5 +213,6 @@ get_header(); ?>
 			<div class="clearfix"> </div>
 		</div>
 	</div>
-<!-- //newsletter -->
+<!-- #end newsletter -->
+
 <?php get_footer();

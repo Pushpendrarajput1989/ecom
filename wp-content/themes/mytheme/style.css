@@ -322,9 +322,7 @@ ul.multi-column-dropdown h6 {
 .navbar-nav {
     float: none;
 }
-.navbar-nav > li:nth-child(1) {
-    margin-left: 12em;
-}
+
 .dropdown-menu {
     left: -130%;
 }
@@ -4372,3 +4370,65 @@ td.invert-image a img {
 .new-products.Size { background: #e5bed4; }
 .new-products.Color { background: #bfe5be; }
 .new-products.Category { background: #e5e0be; }
+.featured-categories, .shop-by-shape{
+    float: left;
+    margin: 1%;
+}
+.featured-categories-block{
+    margin-top: 2%;
+}
+#small-rugs{
+    width: 36px;
+    height: 60px;
+    background: #8ac859;
+    display: inline-table;
+}
+#medium-rugs{
+    width: 60px;
+    height: 80px;
+    background: #8ac859;
+    display: inline-table;
+}
+#large-rugs{
+    width: 80px;
+    height: 100px;
+    background: #8ac859;
+    display: inline-table;
+}
+#runners-rugs{
+    width: 30px;
+    height: 100px;
+    background: #8ac859;
+    display: inline-table;
+}
+#square-rugs{
+    width: 100px;
+    height: 100px;
+    background: #8ac859;
+    display: inline-table;
+}
+#round-rugs{    
+    width: 100px;
+    height: 100px;
+    background: #8ac859;
+    display: inline-table;
+    border-radius: 50%;
+}
+#octagon-rugs{
+    width: 100px;
+    height: 100px;
+    background: #8ac859;
+    position: relative;
+    margin-left: 30px;
+    display: inline-table;
+}
+#oval-rugs{
+    width: 70px;
+    height: 100px;
+    background: #8ac859;
+    -moz-border-radius: 70px / 100px;
+    -webkit-border-radius: 70px / 100px;
+    border-radius: 70px / 100px;
+    display: inline-table;
+}
+.shop-by-color{min-height: 600px;}
