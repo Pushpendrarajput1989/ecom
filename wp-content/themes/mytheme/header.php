@@ -36,6 +36,7 @@
 <!-- //for bootstrap working -->
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/easyResponsiveTabs.js" type="text/javascript"></script>
 <!-- start-smooth-scrolling -->
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -46,7 +47,7 @@
 	});
 </script>
 <!-- //end-smooth-scrolling -->
-<?php wp_head(); ?>
+<?php  wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>

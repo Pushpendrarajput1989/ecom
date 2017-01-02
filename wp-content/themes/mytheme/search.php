@@ -13,7 +13,8 @@
 get_header(); ?>
 
 <div class="wrap">
-
+<div class="container">
+<div class="col-md-12">
 	<header class="page-header">
 		<?php if ( have_posts() ) : ?>
 			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'twentyseventeen' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
@@ -49,14 +50,15 @@ get_header(); ?>
 
 			<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'twentyseventeen' ); ?></p>
 			<?php
-				get_search_form();
+				// get_search_form();
 
 		endif;
 		?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-	<?php get_sidebar(); ?>
+	</div><!-- #col-md-12 -->
+	</div><!-- #container -->
 </div><!-- .wrap -->
 
 <?php get_footer();

@@ -15,4 +15,7 @@
 			<a href="#home1" class="scroll"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/arrow.png" alt=" " class="img-responsive" /></a>
 		</div>
 	</div>
+	<div class="container">
+		<p>&copy; 2016 JPSrugs. All rights reserved | Design by Altstact Tech</p>
+	</div>
 </div>

@@ -525,3 +525,65 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
  * SVG icons functions and filters.
  */
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
+
+
+
+add_action( 'register_form', 'adding_custom_registration_fields' );
+function adding_custom_registration_fields( ) {
+
+	//lets make the field required so that i can show you how to validate it later;
+	$firstname = empty( $_POST['firstname'] ) ? '' : $_POST['firstname'];
+	$lastname  = empty( $_POST['lastname'] ) ? '' : $_POST['lastname'];
+	?>
+	<p>
+		<label><?php _e( 'First Name', 'woocommerce' ) ?><span class="required">*</span></label>
+		<input type="text" class="input-text" name="firstname" required id="reg_firstname" size="30" value="<?php echo esc_attr( $firstname ) ?>" />
+	</p>
+	<p>
+		<label for="reg_lastname"><?php _e( 'Last Name', 'woocommerce' ) ?><span class="required">*</span></label>
+		<input type="text" class="input-text" name="lastname" required id="reg_lastname" size="30" value="<?php echo esc_attr( $lastname ) ?>" />
+	</p>
+	<p>
+		<label for="reg_lastname"><?php _e( 'Phone', 'woocommerce' ) ?></label>
+		<input type="text" class="input-text" name="phone" id="reg_phone" size="30" value="<?php echo esc_attr( $phone ) ?>" />
+	</p>
+
+	<p>
+		<input type="checkbox" required /> <i> By logging in you agree to our <a href="<?php echo get_permalink(123); ?>">Terms and Conditions</a> and <a href="<?php echo get_permalink(118); ?>">Privacy Policy</a></i>
+	</p>
+	<?php
+}
+
+add_filter( 'woocommerce_registration_errors', 'registration_errors_validation' );
+
+/**
+ * @param WP_Error $reg_errors
+ *
+ * @return WP_Error
+ */
+function registration_errors_validation( $reg_errors ) {
+
+	if ( empty( $_POST['firstname'] ) || empty( $_POST['lastname'] ) ) {
+		$reg_errors->add( 'empty required fields', __( 'Please fill in the required fields.', 'woocommerce' ) );
+	}
+
+	return $reg_errors;
+}
+
+//Updating use meta after registration successful registration
+add_action('woocommerce_created_customer','adding_extra_reg_fields');
+
+function adding_extra_reg_fields($user_id) {
+	extract($_POST);
+	update_user_meta($user_id, 'first_name', $firstname);
+	update_user_meta($user_id, 'last_name', $lastname);
+	update_user_meta($user_id, 'phone', $phone);
+
+	update_user_meta($user_id, 'billing_first_name', $firstname);
+	update_user_meta($user_id, 'shipping_first_name', $firstname);
+	update_user_meta($user_id, 'billing_last_name', $lastname);
+	update_user_meta($user_id, 'shipping_last_name', $lastname);
+	
+	update_user_meta($user_id, 'billing_phone', $phone);
+
+}

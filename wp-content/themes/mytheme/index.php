@@ -17,7 +17,6 @@
 
 get_header(); ?>
 <link href="<?php echo get_template_directory_uri(); ?>/assets/css/circular-carousel/jquery.circular-carousel.css" rel="stylesheet" type="text/css" media="all" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/circular-carousel/jquery.circular-carousel.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/circular-carousel/script.js"></script>
 
@@ -33,15 +32,14 @@ get_header(); ?>
 	<div class="new-products featured-categories-block Size">
 		<div class="container">
 			<h3>Featured Category</h3>
+            <div class="agileinfo_new_products_grids">
 			<?php
-
 			$prod_categories = get_terms( 'product_cat', array(
 			        'orderby'    => 'name',
 			        'order'      => 'ASC',
 			        'hide_empty' => false,
 			        'parent'     => 29
 		    ));
-
 		    foreach( $prod_categories as $prod_cat ) :
 		    	if (stripos(strtolower($prod_cat->name), "rugs") !== false) {
 				    $title = ucwords($prod_cat->name);
@@ -51,18 +49,26 @@ get_header(); ?>
 		        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
 		        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
 		        $term_link = get_term_link( $prod_cat, 'product_cat' );?>
-		        <div class="featured-categories">
-			        <div class="image"><a href="<?php echo $term_link; ?>"><img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" /></a></div>
-			        <div class="title">
+		        <div class="featured-categories col-md-4 agileinfo_new_products_grid">
+                <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
+                <div class="image">
+                <a href="<?php echo $term_link; ?>"><img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" /></a>
+                <div class="media__body">
+    			<h2><?=$title?></h2>
+    			<p><?=$prod_cat->description?></p>
+  				</div>
+                </div>
+			    <h5 class="title">
 				        <a title="<?=$title?>" href="<?php echo $term_link; ?>"><?=$title?></a>
-			        </div>
-			        <div class="description"><p><?=$prod_cat->description?></p></div>
+			    </h5>
+                </div>
 			    </div>
+                
 		    <?php 
 		    endforeach; 
 		    wp_reset_query(); 
-			
 			?>
+            </div>
 		</div>
 	</div>
 <!-- #end featured-categories -->
@@ -71,6 +77,7 @@ get_header(); ?>
 	<div class="new-products shop-by-shape-block Shape">
 		<div class="container">
 			<h3>Shop By Shape</h3>
+            <div class="agileinfo_new_products_grids">
 			<?php
 
 			$prod_categories = get_terms( 'product_cat', array(
@@ -91,16 +98,22 @@ get_header(); ?>
 		        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
 		        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
 		        $term_link = get_term_link( $prod_cat, 'product_cat' );?>
-		        <div class="shop-by-shape">
+                <div class="shop-by-shape col-md-3 agileinfo_new_products_grid">
+                <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
 			        <div class="image">
 			        	<a href="<?php echo $term_link; ?>" title="<?=$title?>" id="<?=$prod_cat->slug?>"></a>
 			        </div>
+                    <h5 class="title">
+                    <a title="<?=$title?>" href="<?php echo $term_link; ?>"><?=$title?></a>
+                    </h5>
 			    </div>
+                </div>
 		    <?php 
 		    endforeach; 
 		    wp_reset_query(); 
 			
 			?>
+            </div>
 		</div>
 	</div>
 <!-- #end shop-by-shape -->
@@ -111,29 +124,60 @@ get_header(); ?>
 			<h3>Shop By Color</h3>
 			<div class="row">
 				<ul class="carousel">
+					<?php
+
+					$prod_categories = get_terms( 'product_cat', array(
+					        'orderby'    => 'id',
+					        'order'      => 'ASC',
+					        'hide_empty' => false,
+					        'parent'     => 36
+				    ));
+
+				    foreach( $prod_categories as $prod_cat ) :
+				    	
+				        if (stripos(strtolower($prod_cat->name), "rugs") !== false) {
+						    $title = ucwords($prod_cat->name);
+						}else{
+							$title = ucwords($prod_cat->name).'&nbsp; Rugs';
+						}
+							       
+				        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
+				        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
+				        $term_link = get_term_link( $prod_cat, 'product_cat' );?>          
+				        <li class="item">
+				        	<a href="<?php echo $term_link; ?>" title="<?=$title?>" id="<?=$prod_cat->slug?>">
+				        		<img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" />
+			        		</a>
+				        </li>		         
+				    <?php 
+				    endforeach; 
+				    wp_reset_query(); 
+					
+					?>
+
 					<li class="item active">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>
 					<li class="item">
-						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a>Test</li>		
+						<a href="<?=site_url()?>"><img src="http://a50e84be753e362e04e5-ab8ebe4d3eeff3d3e46504823a9fbcba.r94.cf2.rackcdn.com/Green-Olive-Sage-Rugs-text.png"></a></li>		
 				</ul>
 			</div>
 			<div class="controls">
-				<a href="#" class="previous">Previous</a> 
-				<a href="#" class="next">Next</a>
+				<a href="#" class="previous"><span class="glyphicon glyphicon-menu-left"></span></a> 
+				<a href="#" class="next"><span class="glyphicon glyphicon-menu-right"></span></a>
 			</div>
 		</div>
 	</div>
@@ -143,6 +187,7 @@ get_header(); ?>
 	<div class="new-products shop-by-construction Construction">
 		<div class="container">
 			<h3>Shop By Construction</h3>
+            <div class="agileinfo_new_products_grids">
 			<?php
 
 			$prod_categories = get_terms( 'product_cat', array(
@@ -161,18 +206,27 @@ get_header(); ?>
 		        $cat_thumb_id = get_woocommerce_term_meta( $prod_cat->term_id, 'thumbnail_id', true );
 		        $shop_catalog_img = wp_get_attachment_image_src( $cat_thumb_id, 'shop_catalog' );
 		        $term_link = get_term_link( $prod_cat, 'product_cat' );?>
-		        <div class="featured-categories">
-			        <div class="image"><a href="<?php echo $term_link; ?>"><img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" /></a></div>
-			        <div class="title">
+		        <div class="featured-categories col-md-3 agileinfo_new_products_grid">
+                <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
+                
+			        <div class="image">
+                    <a href="<?php echo $term_link; ?>"><img src="<?php echo $shop_catalog_img[0]; ?>" alt="<?php echo $prod_cat->name; ?>" /></a>
+                    <div class="media__body">
+    			<h2><?=$title?></h2>
+    			<p><?=$prod_cat->description?></p>
+  				</div>
+                    </div>
+			        <h5 class="title">
 				        <a title="<?=$title?>" href="<?php echo $term_link; ?>"><?=$title?></a>
-			        </div>
-			        <div class="description"><p><?=$prod_cat->description?></p></div>
+			        </h5>
 			    </div>
+                </div>
 		    <?php 
 		    endforeach; 
 		    wp_reset_query(); 
 			
 			?>
+            </div>
 		</div>
 	</div>
 <!-- #end shop-by-construction -->
@@ -189,8 +243,8 @@ get_header(); ?>
 				<div class="timer_wrap">
 					<div id="counter"> </div>
 				</div>
-				<script src="js/jquery.countdown.js"></script>
-				<script src="js/script.js"></script>
+				<script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.countdown.js"></script>
+				<script src="<?php echo get_template_directory_uri(); ?>/assets/js/script.js"></script>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
