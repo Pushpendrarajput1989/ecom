@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php wc_print_notices(); ?>
+<?php echo $loggedError; ?>
 
 <?php do_action( 'woocommerce_before_customer_login_form' ); ?>
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php endif; ?>
 
-		<h2><?php _e( 'Login', 'woocommerce' ); ?></h2>
+		<h2><?php _e( '<span class="glyphicon glyphicon-log-in"></span> Login', 'woocommerce' ); ?></h2>
 
 		<form method="post" class="login">
 
@@ -72,7 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="u-column2 col-2">
 
-		<h2><?php _e( 'Register', 'woocommerce' ); ?></h2>
+		<h2><?php _e( '<span class="glyphicon glyphicon-pencil"></span> Register', 'woocommerce' ); ?></h2>
 
 		<form method="post" class="register">
 

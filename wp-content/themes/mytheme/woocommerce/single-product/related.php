@@ -46,22 +46,73 @@ $woocommerce_loop['columns'] = apply_filters( 'woocommerce_related_products_colu
 
 if ( $products->have_posts() ) : ?>
 
-	<div class="related products">
-
-		<h2><?php _e( 'Related Products', 'woocommerce' ); ?></h2>
-
+	<div class="w3l_related_products ">
+		<div class="container">
+		<h3><?php _e( 'Related Products', 'woocommerce' ); ?></h3>
 		<?php woocommerce_product_loop_start(); ?>
-
+		<ul id="flexiselDemo2">		
 			<?php while ( $products->have_posts() ) : $products->the_post(); ?>
+				<li>
+					<div class="w3l_related_products_grid">
+						<div class="agile_ecommerce_tab_left dresses_grid">
+							<div class="hs-wrapper hs-wrapper3">
+								<?php 
+									$attachment_ids = $product->get_gallery_attachment_ids();
+									foreach( $attachment_ids as $attachment_id ) { 
+								?>
+										<img src="<?php echo wp_get_attachment_url( $attachment_id ); ?>" alt=" " class="img-responsive" /> 
+								<?php
+									  
+									}
+								?>
+								<?php // do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
+								<div class="w3_hs_bottom">
+									<div class="flex_ecommerce">
+										<a href="#" data-toggle="modal" data-target="#myModal<?php echo $product->id; ?>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+									</div>
+								</div>
 
-				<?php wc_get_template_part( 'content', 'product' ); ?>
-
+								<!-- #Start Model -->
+								<div class="modal video-modal fade" id="myModal<?php echo $product->id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModal<?php echo $product->id; ?>">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+											</div>
+											<section>
+												<div class="modal-body">
+													<div class="col-md-5 modal_body_left">
+														<?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
+													</div>
+													<div class="col-md-7 modal_body_right">
+														<h4><?php echo $product->post->post_title; ?></h4>
+														<p><?php echo $product->post->post_excerpt; ?></p>
+														<div class="modal_body_right_cart simpleCart_shelfItem">
+															<p><?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?></p>
+															<p><?php do_action( 'woocommerce_after_shop_loop_item' ); ?></p>
+														</div>
+													</div>
+													<div class="clearfix"> </div>
+												</div>
+											</section>
+										</div>
+									</div>
+								</div>
+								<!-- #End Model -->
+							</div>
+							<h5><a href="<?php echo get_permalink($product->ID); ?>"><?php echo $product->post->post_title; ?></a></h5>
+							<div class="simpleCart_shelfItem">
+								<p><?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?></p>
+								<p><?php do_action( 'woocommerce_after_shop_loop_item' ); ?></p>
+							</div>
+						</div>
+					</div>
+				</li>
 			<?php endwhile; // end of the loop. ?>
-
+		</ul>
 		<?php woocommerce_product_loop_end(); ?>
-
+		</div>
 	</div>
-
 <?php endif;
 
 wp_reset_postdata();

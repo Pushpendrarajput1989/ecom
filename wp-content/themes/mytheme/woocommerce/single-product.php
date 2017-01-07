@@ -20,40 +20,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_header( 'shop' ); ?>
+get_header( 'shop' ); 
 
-	<?php
-		/**
-		 * woocommerce_before_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
-		 * @hooked woocommerce_breadcrumb - 20
-		 */
-		do_action( 'woocommerce_before_main_content' );
-	?>
+$terms = get_the_terms( $post->ID, 'product_cat' );
+$termID = (int)$terms[0]->term_id;
+$taxonomy = 'product_cat';
 
-		<?php while ( have_posts() ) : the_post(); ?>
+?>
 
-			<?php wc_get_template_part( 'content', 'single-product' ); ?>
+<!-- banner -->
+<div class="banner1" style="background: url('<?php echo the_field('banner_image', $taxonomy.'_'.$termID); ?>');" id="home1">
+	<div class="container">
+		<h2><?php the_title(); ?></h2>
+	</div>
+</div>
+<!-- //banner -->
 
-		<?php endwhile; // end of the loop. ?>
+<!-- breadcrumbs -->
+<div class="breadcrumb_dress">
+	<div class="container">
+		<?php
+			$args = array(
+		            'delimiter' => '',
+		            'wrap_before' => '<ul class="breadcrumb">',
+		            'wrap_after'  => '</ul>',
+		            'before'      => '<li>',
+		            'after'       => '</li>',
+			);
+			woocommerce_breadcrumb($args); 
+		?>
+	</div>
+</div>
+<!-- //breadcrumbs -->
 
-	<?php
-		/**
-		 * woocommerce_after_main_content hook.
-		 *
-		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-		 */
-		do_action( 'woocommerce_after_main_content' );
-	?>
+<?php while ( have_posts() ) : the_post(); ?>
 
-	<?php
-		/**
-		 * woocommerce_sidebar hook.
-		 *
-		 * @hooked woocommerce_get_sidebar - 10
-		 */
-		do_action( 'woocommerce_sidebar' );
-	?>
+	<?php wc_get_template_part( 'content', 'single-product' ); ?>
+
+<?php endwhile; // end of the loop. ?>
+
+<?php
+	/**
+	 * woocommerce_after_main_content hook.
+	 *
+	 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+	 */
+	do_action( 'woocommerce_after_main_content' );
+?>
 
 <?php get_footer( 'shop' ); ?>

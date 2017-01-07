@@ -72,7 +72,7 @@
 										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Sign up</span></li>
 									</ul>		
 									<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
-										<?php wc_print_notices(); ?>
+										<?php $loggedError = wc_print_notices(); ?>
 										<div class="facts">
 											<div class="register">
 												<form method="post" class="login">

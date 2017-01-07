@@ -2272,7 +2272,7 @@ function comment_form( $args = array(), $post_id = null ) {
 	 */
 	do_action( 'comment_form_before' );
 	?>
-	<div id="respond" class="comment-respond">
+	<div id="respond" class="comment-respond review_grids ">
 		<?php
 		echo $args['title_reply_before'];
 

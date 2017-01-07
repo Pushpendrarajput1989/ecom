@@ -16,6 +16,30 @@
  */
 
 get_header(); ?>
+<!-- banner -->
+	<div class="banner10" style="background: url('<?php echo get_field('header_image', $pageId); ?>');" id="home1">
+		<div class="container">
+			<h2><?php the_title(); ?></h2>
+		</div>
+	</div>
+<!-- //banner -->
+
+<!-- breadcrumbs -->
+	<div class="breadcrumb_dress">
+		<div class="container">
+			<?php
+				$args = array(
+			            'delimiter' => '',
+			            'wrap_before' => '<ul class="breadcrumb">',
+			            'wrap_after'  => '</ul>',
+			            'before'      => '<li>',
+			            'after'       => '</li>',
+				);
+				woocommerce_breadcrumb($args); 
+			?>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
 
 <div class="wrap">
 	<div id="primary" class="content-area">

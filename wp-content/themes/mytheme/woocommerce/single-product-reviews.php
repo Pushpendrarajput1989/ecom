@@ -28,12 +28,12 @@ if ( ! comments_open() ) {
 ?>
 <div id="reviews" class="woocommerce-Reviews">
 	<div id="comments">
-		<h2 class="woocommerce-Reviews-title"><?php
+		<h3 class="woocommerce-Reviews-title"><?php
 			if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' && ( $count = $product->get_review_count() ) )
 				printf( _n( '%s review for %s%s%s', '%s reviews for %s%s%s', $count, 'woocommerce' ), $count, '<span>', get_the_title(), '</span>' );
 			else
 				_e( 'Reviews', 'woocommerce' );
-		?></h2>
+		?></h3>
 
 		<?php if ( have_comments() ) : ?>
 
@@ -61,7 +61,7 @@ if ( ! comments_open() ) {
 	<?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->id ) ) : ?>
 
 		<div id="review_form_wrapper">
-			<div id="review_form">
+			<div id="review_form review_grids">
 				<?php
 					$commenter = wp_get_current_commenter();
 
@@ -84,6 +84,7 @@ if ( ! comments_open() ) {
 						$comment_form['must_log_in'] = '<p class="must-log-in">' .  sprintf( __( 'You must be <a href="%s">logged in</a> to post a review.', 'woocommerce' ), esc_url( $account_page_url ) ) . '</p>';
 					}
 
+
 					if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
 						$comment_form['comment_field'] = '<p class="comment-form-rating"><label for="rating">' . __( 'Your Rating', 'woocommerce' ) .'</label><select name="rating" id="rating" aria-required="true" required>
 							<option value="">' . __( 'Rate&hellip;', 'woocommerce' ) . '</option>
@@ -94,6 +95,7 @@ if ( ! comments_open() ) {
 							<option value="1">' . __( 'Very Poor', 'woocommerce' ) . '</option>
 						</select></p>';
 					}
+					
 
 					$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . __( 'Your Review', 'woocommerce' ) . ' <span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" required></textarea></p>';
 

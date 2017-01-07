@@ -9,8 +9,6 @@
  */
 
 ?>
-
-
 <div class="container">
 	<div class="w3_footer_grids">
 		<div class="col-md-3 w3_footer_grid">

@@ -22,10 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 ?>
-<li itemprop="review" itemscope itemtype="http://schema.org/Review" <?php comment_class(); ?> id="li-comment-<?php comment_ID() ?>">
-
-	<div id="comment-<?php comment_ID(); ?>" class="comment_container">
-
+<div class="additional_info_sub_grids">
+	<div class="col-xs-2 additional_info_sub_grid_left">
 		<?php
 		/**
 		 * The woocommerce_review_before hook
@@ -34,34 +32,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 */
 		do_action( 'woocommerce_review_before', $comment );
 		?>
-
-		<div class="comment-text">
-
-			<?php
-			/**
-			 * The woocommerce_review_before_comment_meta hook.
-			 *
-			 * @hooked woocommerce_review_display_rating - 10
-			 */
-			do_action( 'woocommerce_review_before_comment_meta', $comment );
-
-			/**
-			 * The woocommerce_review_meta hook.
-			 *
-			 * @hooked woocommerce_review_display_meta - 10
-			 */
-			do_action( 'woocommerce_review_meta', $comment );
-
-			do_action( 'woocommerce_review_before_comment_text', $comment );
-
-			/**
-			 * The woocommerce_review_comment_text hook
-			 *
-			 * @hooked woocommerce_review_display_comment_text - 10
-			 */
-			do_action( 'woocommerce_review_comment_text', $comment );
-
-			do_action( 'woocommerce_review_after_comment_text', $comment ); ?>
-
-		</div>
 	</div>
+	<div class="col-xs-10 additional_info_sub_grid_right">
+		<div class="additional_info_sub_grid_rightl">
+		<?php 
+			do_action( 'woocommerce_review_meta', $comment ); 
+			do_action( 'woocommerce_review_before_comment_text', $comment ); 
+			do_action( 'woocommerce_review_comment_text', $comment );
+			do_action( 'woocommerce_review_after_comment_text', $comment );
+		?>
+		</div>
+		<div class="additional_info_sub_grid_rightr">
+			<?php do_action( 'woocommerce_review_before_comment_meta', $comment ); ?>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+	<div class="clearfix"> </div>
+</div>

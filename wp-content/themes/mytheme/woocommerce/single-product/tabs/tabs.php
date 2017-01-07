@@ -29,20 +29,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 $tabs = apply_filters( 'woocommerce_product_tabs', array() );
 
 if ( ! empty( $tabs ) ) : ?>
-
-	<div class="woocommerce-tabs wc-tabs-wrapper">
-		<ul class="tabs wc-tabs">
-			<?php foreach ( $tabs as $key => $tab ) : ?>
-				<li class="<?php echo esc_attr( $key ); ?>_tab">
-					<a href="#tab-<?php echo esc_attr( $key ); ?>"><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></a>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-		<?php foreach ( $tabs as $key => $tab ) : ?>
-			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( $key ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>">
-				<?php call_user_func( $tab['callback'], $key, $tab ); ?>
-			</div>
-		<?php endforeach; ?>
+<div class="additional_info">
+<div class="container">
+	<div class="sap_tabs">
+		<div id="horizontalTab1" style="display: block; width: 100%; margin: 0px;">
+			<ul class="tabs wc-tabs">
+				<?php $i = 0; foreach ( $tabs as $key => $tab ) : ?>
+					<li class="<?php echo esc_attr( $key ); ?>_tab resp-tab-item" aria-controls="tab_item-<?=$i?>" role="tab">
+						<span><?php echo apply_filters( 'woocommerce_product_' . $key . '_tab_title', esc_html( $tab['title'] ), $key ); ?></span>
+					</li>
+				<?php $i++; endforeach; ?>
+			</ul>
+			<?php $j = 0; foreach ( $tabs as $key => $tab ) : ?>
+				<div class="tab-<?=$j+1; ?> resp-tab-content additional_info_grid" id="tab-<?php echo esc_attr( $key ); ?>" aria-labelledby="tab_item-<?=$j?>">
+					<?php call_user_func( $tab['callback'], $key, $tab ); ?>
+				</div>
+			<?php $j++; endforeach; ?>
+		</div>
 	</div>
-
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#horizontalTab1').easyResponsiveTabs({
+				type: 'default', //Types: default, vertical, accordion           
+				width: 'auto', //auto or any width like 600px
+				fit: true   // 100% fit in a container
+			});
+		});
+	</script>
+		</div>
+</div>
 <?php endif; ?>
