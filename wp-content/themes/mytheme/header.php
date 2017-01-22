@@ -22,6 +22,7 @@
 <link href="<?php echo get_template_directory_uri(); ?>/assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="<?php echo get_template_directory_uri(); ?>/assets/css/fasthover.css" rel="stylesheet" type="text/css" media="all" />
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.min.js"></script>
 <!-- //js -->
@@ -37,6 +38,8 @@
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/easyResponsiveTabs.js" type="text/javascript"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.validationEngine.js" type="text/javascript"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.validationEngine-en.js" type="text/javascript"></script>
 <!-- start-smooth-scrolling -->
 <script type="text/javascript">
 	jQuery(document).ready(function($) {

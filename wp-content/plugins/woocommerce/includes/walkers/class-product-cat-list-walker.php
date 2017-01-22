@@ -50,7 +50,7 @@ class WC_Product_Cat_List_Walker extends Walker {
 			return;
 
 		$indent = str_repeat("\t", $depth);
-		$output .= "$indent<ul class='children'>\n";
+		$output .= "$indent<ul class='children w3ls_dresses_grid_left_grid_sub panel-default'>\n";
 	}
 
 	/**
@@ -89,14 +89,19 @@ class WC_Product_Cat_List_Walker extends Walker {
 		}
 
 		if ( $args['has_children'] && $args['hierarchical'] ) {
-			$output .= ' cat-parent';
+			$output .= ' cat-parent w3ls_dresses_grid_left_grid';
 		}
 
 		if ( $args['current_category_ancestors'] && $args['current_category'] && in_array( $cat->term_id, $args['current_category_ancestors'] ) ) {
 			$output .= ' current-cat-parent';
 		}
 
-		$output .=  '"><a href="' . get_term_link( (int) $cat->term_id, $this->tree_type ) . '">' . _x( $cat->name, 'product category name', 'woocommerce' ) . '</a>';
+		if ( $args['has_children'] && $args['hierarchical'] ) {
+			$output .=  '"><h3><a href="' . get_term_link( (int) $cat->term_id, $this->tree_type ) . '">' . _x( $cat->name, 'product category name', 'woocommerce' ) . '</a></h3>';
+		}else{
+			$output .=  '"><a href="' . get_term_link( (int) $cat->term_id, $this->tree_type ) . '">' . _x( $cat->name, 'product category name', 'woocommerce' ) . '</a>';
+		}
+
 
 		if ( $args['show_count'] ) {
 			$output .= ' <span class="count">(' . $cat->count . ')</span>';

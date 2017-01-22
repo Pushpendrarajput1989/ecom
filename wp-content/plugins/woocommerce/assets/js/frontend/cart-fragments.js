@@ -38,7 +38,7 @@ jQuery( function( $ ) {
 	var $fragment_refresh = {
 		url: wc_cart_fragments_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'get_refreshed_fragments' ),
 		type: 'POST',
-		success: function( data ) {
+		success: function( data ) {	
 			if ( data && data.fragments ) {
 
 				$.each( data.fragments, function( key, value ) {

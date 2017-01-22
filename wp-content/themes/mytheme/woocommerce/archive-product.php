@@ -24,9 +24,11 @@ get_header( 'shop' );
 
 $termID = get_queried_object()->term_id;
 $taxonomy = 'product_cat';
+$catImg = get_field('banner_image', $taxonomy.'_'.$termID);
+$defaultImg = get_template_directory_uri().'/assets/images/default.jpg';
 ?>
 <!-- banner -->
-	<div class="banner1" style="background: url('<?php echo the_field('banner_image', $taxonomy.'_'.$termID); ?>');" id="home1">
+	<div class="banner1" style="background: url('<?php echo (!empty($catImg))?$catImg:$defaultImg; ?>'); background-size: cover;" id="home1">
 		<div class="container">
 			<?php echo the_field('banner_image_text', $taxonomy.'_'.$termID); ?>
 		</div>
@@ -49,6 +51,8 @@ $taxonomy = 'product_cat';
 		</div>
 	</div>
 <!-- //breadcrumbs -->
+<div class="dresses">
+		<div class="container">
 <div class="w3ls_dresses_grids">
 	<!-- #Start product filters -->
 	<div class="col-md-4 w3ls_dresses_grid_left">
@@ -95,7 +99,7 @@ $taxonomy = 'product_cat';
 					<?php woocommerce_product_subcategories(); ?>
 
 					<?php while ( have_posts() ) : the_post(); ?>
-
+						
 						<?php wc_get_template_part( 'content', 'product' ); ?>
 
 					<?php endwhile; // end of the loop. ?>
@@ -120,7 +124,8 @@ $taxonomy = 'product_cat';
 		</div>
 		<!-- #End product listing -->
 	</div>
-	
+	</div>
+    </div>
 	<?php
 		/**
 		 * woocommerce_after_main_content hook.

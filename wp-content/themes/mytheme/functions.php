@@ -278,8 +278,8 @@ function twentyseventeen_widgets_init() {
 		'description'   => __( 'Add widgets here to appear in your sidebar.', 'twentyseventeen' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 
 	register_sidebar( array(
@@ -288,8 +288,8 @@ function twentyseventeen_widgets_init() {
 		'description'   => __( 'Add widgets here to appear in your footer.', 'twentyseventeen' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 
 	register_sidebar( array(
@@ -298,8 +298,8 @@ function twentyseventeen_widgets_init() {
 		'description'   => __( 'Add widgets here to appear in your footer.', 'twentyseventeen' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
 	) );
 }
 add_action( 'widgets_init', 'twentyseventeen_widgets_init' );
@@ -527,63 +527,78 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
 
 
+/*----------------------- Custom functions -------------------------- */
 
-add_action( 'register_form', 'adding_custom_registration_fields' );
-function adding_custom_registration_fields( ) {
 
-	//lets make the field required so that i can show you how to validate it later;
-	$firstname = empty( $_POST['firstname'] ) ? '' : $_POST['firstname'];
-	$lastname  = empty( $_POST['lastname'] ) ? '' : $_POST['lastname'];
+add_filter('add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
+
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+global $woocommerce;
+ob_start();
+?>
+<a class="cart-contents" href="<?php echo $woocommerce->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
+<i class="glyphicon glyphicon-shopping-cart"></i> <?php echo $woocommerce->cart->get_cart_total(); ?>
+(<?php echo $woocommerce->cart->cart_contents_count; ?> items)
+<p>View Cart</p>
+<?php
+
+$fragments['a.cart-contents'] = ob_get_clean();
+
+return $fragments;
+
+}
+
+
+add_filter('woocommerce_registration_errors', 'registration_errors_validation', 10,3);
+function registration_errors_validation($reg_errors, $sanitized_user_login, $user_email) {
+	global $woocommerce;
+	extract( $_POST );
+	if ( strcmp( $password, $password2 ) !== 0 ) {
+		return new WP_Error( 'registration-error', __( 'Passwords do not match.', 'woocommerce' ) );
+	}
+	return $reg_errors;
+}
+add_action( 'woocommerce_register_form', 'wc_register_form_password_repeat' );
+function wc_register_form_password_repeat() {
 	?>
-	<p>
-		<label><?php _e( 'First Name', 'woocommerce' ) ?><span class="required">*</span></label>
-		<input type="text" class="input-text" name="firstname" required id="reg_firstname" size="30" value="<?php echo esc_attr( $firstname ) ?>" />
+	<p class="form-row form-row-wide">
+		<input type="password" placeholder="Confirm Password" class="input-text validate[required,equals[reg_password]]" name="password2" id="reg_password2" value="<?php if ( ! empty( $_POST['password2'] ) ) echo esc_attr( $_POST['password2'] ); ?>" />
 	</p>
-	<p>
-		<label for="reg_lastname"><?php _e( 'Last Name', 'woocommerce' ) ?><span class="required">*</span></label>
-		<input type="text" class="input-text" name="lastname" required id="reg_lastname" size="30" value="<?php echo esc_attr( $lastname ) ?>" />
-	</p>
-	<p>
-		<label for="reg_lastname"><?php _e( 'Phone', 'woocommerce' ) ?></label>
-		<input type="text" class="input-text" name="phone" id="reg_phone" size="30" value="<?php echo esc_attr( $phone ) ?>" />
-	</p>
-
 	<p>
 		<input type="checkbox" required /> <i> By logging in you agree to our <a href="<?php echo get_permalink(123); ?>">Terms and Conditions</a> and <a href="<?php echo get_permalink(118); ?>">Privacy Policy</a></i>
 	</p>
 	<?php
 }
 
-add_filter( 'woocommerce_registration_errors', 'registration_errors_validation' );
-
-/**
- * @param WP_Error $reg_errors
- *
- * @return WP_Error
- */
-function registration_errors_validation( $reg_errors ) {
-
-	if ( empty( $_POST['firstname'] ) || empty( $_POST['lastname'] ) ) {
-		$reg_errors->add( 'empty required fields', __( 'Please fill in the required fields.', 'woocommerce' ) );
-	}
-
-	return $reg_errors;
-}
-
-//Updating use meta after registration successful registration
-add_action('woocommerce_created_customer','adding_extra_reg_fields');
-
-function adding_extra_reg_fields($user_id) {
-	extract($_POST);
-	update_user_meta($user_id, 'first_name', $firstname);
-	update_user_meta($user_id, 'last_name', $lastname);
-	update_user_meta($user_id, 'phone', $phone);
-
-	update_user_meta($user_id, 'billing_first_name', $firstname);
-	update_user_meta($user_id, 'shipping_first_name', $firstname);
-	update_user_meta($user_id, 'billing_last_name', $lastname);
-	update_user_meta($user_id, 'shipping_last_name', $lastname);
+function insertProductBid(){
+	global $wpdb;
 	
-	update_user_meta($user_id, 'billing_phone', $phone);
+	if(isset($_POST)){
+		$productId = $_POST['product_id'];
+		$userId = $_POST['user_id'];
+		$BidPrice = $_POST['bid_price'];
+		
+		$data = array(
+			'user_id'=>$userId,
+			'product_id'=>$productId,
+			'bid_price'=>$BidPrice,
+			'published_at'=>date('Y-m-d H:i:s'),
+		);
 
+		$result = $wpdb->insert('wp_user_bidding',$data,array('%d','%d','%s','%s'));
+		if($result){
+			echo '1';
+		}else{
+			echo '0';
+		}
+		die;
+
+	}
 }
+
+add_action( 'wp_ajax_insertProductBid', 'insertProductBid' );
+add_action( 'wp_ajax_nopriv_insertProductBid', 'set_course' );
+
+
+
+?>

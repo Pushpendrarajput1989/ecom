@@ -42,9 +42,9 @@ $woocommerce_loop['columns'] = apply_filters( 'woocommerce_cross_sells_columns',
 
 if ( $products->have_posts() ) : ?>
 
-	<div class="cross-sells">
+	<div style="padding-left: 0px;" class="col-md-12">
 
-		<h2><?php _e( 'You may be interested in&hellip;', 'woocommerce' ) ?></h2>
+		<h3><?php _e( 'You may be interested in&hellip;', 'woocommerce' ) ?></h3>
 
 		<?php woocommerce_product_loop_start(); ?>
 

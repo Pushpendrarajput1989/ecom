@@ -54,13 +54,13 @@ if ( is_user_logged_in() ) {
                     }
                    
                     if(strtolower($value)=='twitter'){
-                        $class1 = 'social_dribbble';
-                        $class2 = 'entypo-dribbble';
+                        $class1 = 'social_twitter';
+                        $class2 = 'entypo-twitter';
                     }
 
                     if(strtolower($value)=='google'){
-                        $class1 = 'social_twitter';
-                        $class2 = 'entypo-twitter';
+                        $class1 = 'social_dribbble';
+                        $class2 = 'entypo-dribbble';
                     }
 
                 ?>
@@ -72,11 +72,11 @@ if ( is_user_logged_in() ) {
                        _e( 'Login with', 'accesspress-social-login-lite' );
                        echo ' ' . $value;
                        ?>'>
-                        <div class="apsl-icon-block icon-<?php echo $value; ?>">
-                            <i class="fa fa-<?php echo $value; ?>"></i>
-                            <span class="apsl-login-text"><?php _e( 'Login', 'accesspress-social-login-lite' ); ?></span>
-                            <span class="apsl-long-login-text"><?php _e( 'Login with', 'accesspress-social-login-lite' ); ?><?php echo ' ' . $value; ?></span>
-                        </div>
+                        <!-- <div class="apsl-icon-block icon-<?php // echo $value; ?>">
+                            <i class="fa fa-<?php // echo $value; ?>"></i>
+                            <span class="apsl-login-text"><?php // _e( 'Login', 'accesspress-social-login-lite' ); ?></span>
+                            <span class="apsl-long-login-text"><?php // _e( 'Login with', 'accesspress-social-login-lite' ); ?><?php // echo ' ' . $value; ?></span>
+                        </div> -->
                     </a></li>
                 <?php } ?>
     <?php endforeach; ?>

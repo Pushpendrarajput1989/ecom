@@ -21,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
+<link href="<?php echo get_template_directory_uri(); ?>/assets/css/source/jquery.fancybox.css" rel="stylesheet" type="text/css" media="all" />
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/source/jquery.fancybox.js"></script>
 <div class="single">
 	<div class="container">
 		
@@ -45,28 +47,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 * @hooked woocommerce_show_product_sale_flash - 10
 				 * @hooked woocommerce_show_product_images - 20
 				 */
-				//do_action( 'woocommerce_before_single_product_summary' );
 			?>
+			<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/flexslider.css" type="text/css" media="screen" />
 			<div class="flexslider">
 				<ul class="slides">
-					<li data-thumb="<?php echo get_template_directory_uri(); ?>/assets/images/a.jpg">
-						<div class="thumb-image"> <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a.jpg" data-imagezoom="true" class="img-responsive"> </div>
-					</li>
-					<li data-thumb="<?php echo get_template_directory_uri(); ?>/assets/images/b.jpg">
-						 <div class="thumb-image"> <img src="<?php echo get_template_directory_uri(); ?>/assets/images/b.jpg" data-imagezoom="true" class="img-responsive"> </div>
-					</li>
-					<li data-thumb="<?php echo get_template_directory_uri(); ?>/assets/images/c.jpg">
-					   <div class="thumb-image"> <img src="<?php echo get_template_directory_uri(); ?>/assets/images/c.jpg" data-imagezoom="true" class="img-responsive"> </div>
-					</li> 
-				</ul>
+					<?php if ( has_post_thumbnail( $product->id ) ) {
+		                $attachment_ids[0] = get_post_thumbnail_id( $product->id );
+		                 $attachment = wp_get_attachment_image_src($attachment_ids[0], 'full' ); ?>    
+		                <li data-thumb="<?php echo $attachment[0] ; ?>">
+							<div class="thumb-image"> <img src="<?php echo $attachment[0] ; ?>" data-imagezoom="true" class="img-responsive"> </div>
+						</li>
+		            <?php } ?>
+					<?php 
+						global $product;
+						$attachment_ids = $product->get_gallery_attachment_ids();
+						foreach( $attachment_ids as $attachment_id ) { 
+					?>
+							<li data-thumb="<?php echo wp_get_attachment_url( $attachment_id ); ?>">
+								<div class="thumb-image"> <img src="<?php echo wp_get_attachment_url( $attachment_id ); ?>" data-imagezoom="true" class="img-responsive"> </div>
+							</li>
+					<?php
+						  
+						}
+					?>
+				</ul>	
 			</div>
 			<!-- flixslider -->
 				<script defer src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.flexslider.js"></script>
-				<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/flexslider.css" type="text/css" media="screen" />
 				<script>
 				// Can also be used with $(document).ready()
-				$(window).load(function() {
-				  $('.flexslider').flexslider({
+				jQuery(window).load(function() {
+				  jQuery('.flexslider').flexslider({
 					animation: "slide",
 					controlNav: "thumbnails"
 				  });
@@ -74,8 +85,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</script>
 			<!-- flixslider -->
 			<!-- zooming-effect -->
-				<script src="<?php echo get_template_directory_uri(); ?>/assets/js/imagezoom.js"></script>
+			<script src="<?php echo get_template_directory_uri(); ?>/assets/js/imagezoom.js"></script>
 			<!-- //zooming-effect -->
+			<div class="video_url">
+				<?php 
+					$VideoUrl = get_field('product_video_url', $product->id); 
+					if(!empty($VideoUrl)){
+						if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $VideoUrl, $match)) {
+						    $video_id = $match[1];
+						?>
+						<a class="youtube_video" href="<?=$VideoUrl?>"><img src="https://img.youtube.com/vi/<?=$video_id?>/hqdefault.jpg" ></a>
+						<?php }else{ ?>
+						<a target="_blank" href="<?=$VideoUrl?>"><img src="https://img.youtube.com/vi/<?=$video_id?>/hqdefault.jpg" ></a>
+				<?php } } ?>
+			</div>
 		</div>
 		<div class="col-md-8 single-right">
 			<?php
@@ -92,26 +115,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				 */
 				do_action( 'woocommerce_single_product_summary' );
 			?>
-				<!-- <div class="rating1">
-					<span class="starRating">
-						<input id="rating5" type="radio" name="rating" value="5">
-						<label for="rating5">5</label>
-						<input id="rating4" type="radio" name="rating" value="4">
-						<label for="rating4">4</label>
-						<input id="rating3" type="radio" name="rating" value="3" checked>
-						<label for="rating3">3</label>
-						<input id="rating2" type="radio" name="rating" value="2">
-						<label for="rating2">2</label>
-						<input id="rating1" type="radio" name="rating" value="1">
-						<label for="rating1">1</label>
-					</span>
-				</div> -->
-
-				<!-- <div class="simpleCart_shelfItem">
-					<p><span>$320</span> <i class="item_price">$250</i></p>
-					<p><a class="item_add" href="#">Add to cart</a></p>
-				</div> -->
-
 			</div>
 			<div class="clearfix"></div>
 		<?php do_action( 'woocommerce_after_single_product' ); ?>
@@ -128,3 +131,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 */
 			do_action( 'woocommerce_after_single_product_summary' );
 		?>
+<script type="text/javascript">
+jQuery("a.youtube_video").click(function() {
+    jQuery.fancybox({
+            'padding'       : 0,
+            'autoScale'     : false,
+            'transitionIn'  : 'none',
+            'transitionOut' : 'none',
+            'title'         : this.title,
+            'width'     : 680,
+            'height'        : 495,
+            'href'          : this.href.replace(new RegExp("watch\\?v=", "i"), 'v/'),
+            'type'          : 'swf',
+            'swf'           : {
+                 'wmode'        : 'transparent',
+                'allowfullscreen'   : 'true'
+            }
+        });
+
+    return false;
+});
+
+
+</script>

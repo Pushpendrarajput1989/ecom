@@ -97,7 +97,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 					<td class="product-quantity" data-title="<?php _e( 'Quantity', 'woocommerce' ); ?>">
 						<div class="quantity">
 							<div class="quantity-select">
-								<div class="entry value-minus">&nbsp;</div>
+								<div class="entry value-minus" onclick="decreament(this)">&nbsp;</div>
 								<?php
 									if ( $_product->is_sold_individually() ) {
 										$product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
@@ -112,7 +112,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );
 								?>
-								<div class="entry value-plus active">&nbsp;</div>
+								<div class="entry value-plus" onclick="increament(this)">&nbsp;</div>
 							</div>
 						</div>
 					</td>
@@ -170,28 +170,35 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 </form>
 
+<!--quantity-->
+
+<script>
+function increament(obj){
+	var divUpd = $(obj).prev('.quantity').children('.qty');
+	newVal = parseInt(divUpd.val(), 10)+1;
+	divUpd.attr('value',newVal);
+	$('input[type=submit]').attr('disabled',false);
+	divUpd.keyup();
+}
+
+function decreament(obj){
+	var divUpd = $(obj).next('.quantity').children('.qty');
+	newVal = parseInt(divUpd.val(), 10)-1;
+	divUpd.attr('value',newVal);
+	$('input[type=submit]').attr('disabled',false);
+	divUpd.keyup();
+	if(newVal>=1) divUpd.val(newVal);
+}
+
+</script>
+
+<!--quantity-->
+
 <div class="cart-collaterals">
 
-	<?php do_action( 'woocommerce_cart_collaterals' ); ?>
+	<?php  do_action( 'woocommerce_cart_collaterals' ); ?>
 
 </div>
 
 <?php do_action( 'woocommerce_after_cart' ); ?>
 
-<!--quantity-->
-<script>
-$('.value-plus').on('click', function(){
-	var divUpd = $(this).parent().find('.quantity .qty');
-	newVal = parseInt(divUpd.val(), 10)+1;
-	divUpd.focus();
-	divUpd.val(newVal);
-});
-
-$('.value-minus').on('click', function(){
-	var divUpd = $(this).parent().find('.quantity .qty');
-	newVal = parseInt(divUpd.val(), 10)-1;
-	divUpd.focus();
-	if(newVal>=1) divUpd.val(newVal);
-});
-</script>
-<!--quantity-->

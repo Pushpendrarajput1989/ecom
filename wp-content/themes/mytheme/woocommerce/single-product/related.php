@@ -56,6 +56,11 @@ if ( $products->have_posts() ) : ?>
 					<div class="w3l_related_products_grid">
 						<div class="agile_ecommerce_tab_left dresses_grid">
 							<div class="hs-wrapper hs-wrapper3">
+								<?php if ( has_post_thumbnail( $product->id ) ) {
+					                $attachment_ids[0] = get_post_thumbnail_id( $product->id );
+					                 $attachment = wp_get_attachment_image_src($attachment_ids[0], 'full' ); ?>    
+					                <img src="<?php echo $attachment[0] ; ?>" class="img-responsive"  />
+					            <?php } ?>
 								<?php 
 									$attachment_ids = $product->get_gallery_attachment_ids();
 									foreach( $attachment_ids as $attachment_id ) { 
@@ -65,7 +70,6 @@ if ( $products->have_posts() ) : ?>
 									  
 									}
 								?>
-								<?php // do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
 								<div class="w3_hs_bottom">
 									<div class="flex_ecommerce">
 										<a href="#" data-toggle="modal" data-target="#myModal<?php echo $product->id; ?>"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
@@ -82,7 +86,20 @@ if ( $products->have_posts() ) : ?>
 											<section>
 												<div class="modal-body">
 													<div class="col-md-5 modal_body_left">
-														<?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
+														<?php if ( has_post_thumbnail( $product->id ) ) {
+											                $attachment_ids[0] = get_post_thumbnail_id( $product->id );
+										                 	$attachment = wp_get_attachment_image_src($attachment_ids[0], 'full' ); ?>    
+											                <img src="<?php echo $attachment[0] ; ?>" class="img-responsive"  />
+											            <?php } ?>
+														<?php 
+															$attachment_ids = $product->get_gallery_attachment_ids();
+															foreach( $attachment_ids as $attachment_id ) { 
+														?>
+																<img src="<?php echo wp_get_attachment_url( $attachment_id ); ?>" alt=" " class="img-responsive" /> 
+														<?php
+															  
+															}
+														?>
 													</div>
 													<div class="col-md-7 modal_body_right">
 														<h4><?php echo $product->post->post_title; ?></h4>

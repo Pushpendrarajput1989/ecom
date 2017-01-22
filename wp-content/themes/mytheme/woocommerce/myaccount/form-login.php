@@ -20,9 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+wc_print_notices();
 ?>
-
-<?php echo $loggedError; ?>
 
 <?php do_action( 'woocommerce_before_customer_login_form' ); ?>
 

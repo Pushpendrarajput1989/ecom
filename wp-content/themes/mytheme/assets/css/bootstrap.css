@@ -3436,7 +3436,7 @@ tbody.collapse.in {
   display: none;
   float: left;
   min-width: 160px;
-  padding: 5px 0;
+  /*padding: 5px 0;*/
   margin: 2px 0 0;
   font-size: 14px;
   text-align: left;
@@ -3462,13 +3462,14 @@ tbody.collapse.in {
 }
 .dropdown-menu > li > a {
   display: block;
-  padding: 3px 20px;
+  padding: 6px 10px;
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
   color: #333;
   white-space: nowrap;
 }
+.dropdown-menu > li > a > span{margin-right:5px;}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   color: #262626;
@@ -4594,14 +4595,28 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: #444;
 }
 .breadcrumb {
-  /*padding: 8px 15px;
-  margin-bottom: 20px;*/
+  padding: 0px;
+  margin-bottom: 0px;
   list-style: none;
   background-color: #f5f5f5;
   border-radius: 4px;
 }
 .breadcrumb > li {
   display: inline-block;
+}
+.breadcrumb > li:first-child:before {
+  display: inline-block;
+  content: "\e021";
+  position: relative;
+  color: #212121;
+  margin: 0 10px 0 0;
+    top: 1px;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 .breadcrumb > li + li:before {
   padding: 0 5px;

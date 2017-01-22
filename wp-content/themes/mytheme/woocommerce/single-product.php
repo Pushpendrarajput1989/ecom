@@ -22,14 +22,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header( 'shop' ); 
 
+// $terms = get_the_terms( $post->ID, 'product_cat' );
+// $termID = (int)$terms[0]->term_id;
+// $taxonomy = 'product_cat';
+
 $terms = get_the_terms( $post->ID, 'product_cat' );
 $termID = (int)$terms[0]->term_id;
 $taxonomy = 'product_cat';
+$catImg = get_field('banner_image', $taxonomy.'_'.$termID);
+$defaultImg = get_template_directory_uri().'/assets/images/default.jpg';
 
 ?>
 
 <!-- banner -->
-<div class="banner1" style="background: url('<?php echo the_field('banner_image', $taxonomy.'_'.$termID); ?>');" id="home1">
+<div class="banner1" style="background: url('<?php echo (!empty($catImg))?$catImg:$defaultImg; ?>'); background-size: cover;" id="home1">
 	<div class="container">
 		<h2><?php the_title(); ?></h2>
 	</div>
